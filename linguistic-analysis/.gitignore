@@ -1,0 +1,12 @@
+# Data (may contain annotator names / large files) — place locally, do not commit
+data/
+# Analysis outputs
+results/
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.env
+.pytest_cache/
+.DS_Store

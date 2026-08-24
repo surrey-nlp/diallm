@@ -7,7 +7,7 @@ Jordan Painter · Dipankar Srirag · Adarsh Kappiyath · Diptesh Kanojia · Adit
 *Institute for People-Centered AI, University of Surrey & University of New South Wales*
 
 [![arXiv](https://img.shields.io/badge/arXiv-2607.07669-b31b1b.svg)](https://arxiv.org/abs/2607.07669)
-[![HuggingFace](https://img.shields.io/badge/%F0%9F%A4%97-Models+Datasets-yellow)](https://huggingface.co/jordanpainter/collections)
+[![HuggingFace](https://img.shields.io/badge/%F0%9F%A4%97-Surrey%20NLP%20Collection-yellow)](https://huggingface.co/surrey-nlp)
 [![Surrey NLP](https://img.shields.io/badge/GitHub-Surrey%20NLP-181717?logo=github)](https://github.com/surrey-nlp)
 
 <img src="assets/diallm_pipeline.png" width="500"/>
@@ -66,7 +66,14 @@ sub/
   gspo/  # SLURM submission scripts for GSPO runs
 model_cards/
   diallm-dialect-classifier.md  # Model card for the dialect feature classifier
+linguistic-analysis/
+  README.md         # Full docs — detectors, measures, human-preference bridge
+  diallm_analysis/  # Package: detectors, density/diversity/stacking measures, JS-divergence
+  run_analysis.py   # Entry point
+  tests/
 ```
+
+Independent, reward-free linguistic analysis of generation outputs (`linguistic-analysis/`), built to corroborate the paper's reward-quality gap findings with evidence that doesn't reuse the eWAVE feature classifier defining the training reward. See its own README for detectors, measures, and the human-preference bridge.
 
 ---
 
@@ -131,15 +138,28 @@ The dialect feature classifier (`srirag/feature-identifier`) is a BERT-base enco
 
 ## HuggingFace Resources
 
-| Resource | Link |
+**Main collection** (curated model highlights + all preference datasets): [huggingface.co/surrey-nlp](https://huggingface.co/surrey-nlp)
+
+| Model | Variety | Method |
+|---|---|---|
+| Llama 3.1-8B | en-UK | DPO |
+| Llama 3.1-8B | en-AU | GSPO |
+| Qwen 3-8B | en-AU | GRPO |
+| Qwen 3-8B | en-IN | DPO |
+| Gemma 3-4B-it | en-AU | DPO |
+| Gemma 3-4B-it | en-IN | GRPO |
+
+**Full checkpoint set** (all methods × all varieties × all families): [huggingface.co/jordanpainter](https://huggingface.co/jordanpainter)
+
+| Resource | Pattern |
 |---|---|
 | CPT checkpoints | `jordanpainter/diallm-{llama,qwen,gemma}-cpt` |
 | SFT checkpoints (explicit) | `jordanpainter/diallm-{llama,qwen,gemma}-sft-{aus,ind,brit}` |
-| DPO checkpoints (explicit) | `jordanpainter/diallm-{llama,qwen,gemma}-dpo-{aus,ind,brit}` |
-| GRPO checkpoints (explicit) | `jordanpainter/diallm-{llama,qwen,gemma}-grpo-{aus,ind,brit}` |
-| GSPO checkpoints (explicit) | `jordanpainter/dialect-{llama,qwen,gemma}-gspo-{aus,ind,brit}` |
-| Preference datasets | `jordanpainter/alignment-{australian,british,indian}-final` |
-| Dialect feature classifier | `srirag/feature-identifier` |
+| DPO / GRPO / GSPO checkpoints (explicit) | `jordanpainter/diallm-{llama,qwen,gemma}-{dpo,grpo,gspo}-{aus,ind,brit}` |
+| Broad-thread checkpoints (implicit) | `jordanpainter/diallm-{llama,qwen,gemma}-{sft,dpo,grpo,gspo}-all` |
+| Preference datasets | `surrey-nlp/alignment-{australian,british,indian}-final` |
+| Dialect feature classifier (this repo) | `jordanpainter/diallm-dialect-classifier` |
+| Dialect feature classifier (Srirag et al.) | `srirag/feature-identifier` |
 
 ---
 
